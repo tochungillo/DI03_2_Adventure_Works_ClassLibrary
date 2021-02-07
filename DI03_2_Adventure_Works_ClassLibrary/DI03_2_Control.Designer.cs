@@ -60,6 +60,7 @@ namespace DI03_2_Adventure_Works_ClassLibrary
             this.productImagePictureBox.Size = new System.Drawing.Size(394, 269);
             this.productImagePictureBox.TabIndex = 12;
             this.productImagePictureBox.TabStop = false;
+            this.productImagePictureBox.Click += new System.EventHandler(this.productImagePictureBox_Click);
             this.productImagePictureBox.MouseEnter += new System.EventHandler(this.productImagePictureBox_MouseEnter);
             this.productImagePictureBox.MouseLeave += new System.EventHandler(this.productImagePictureBox_MouseLeave);
             // 
