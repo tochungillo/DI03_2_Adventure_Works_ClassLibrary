@@ -20,7 +20,7 @@ namespace DI03_2_Adventure_Works_ClassLibrary
             {
                 // 
                 string sql =
-                    "SELECT TOP 1 pm.ProductModelID AS ProductModelID, pm.Name AS ProductModelName, p.ListPrice AS ListPrice, pp.LargePhoto AS LargePhoto " +
+                    "SELECT pm.ProductModelID AS ProductModelID, pm.Name AS ProductModelName, p.ListPrice AS ListPrice, pp.LargePhoto AS LargePhoto, p.Size AS Size " +
                     "FROM Production.ProductModel pm " +
                     "INNER JOIN Production.Product p ON pm.ProductModelID = p.ProductModelID " +
                     "JOIN Production.ProductProductPhoto ppp ON ppp.ProductID = p.ProductID " +
@@ -29,7 +29,6 @@ namespace DI03_2_Adventure_Works_ClassLibrary
 
                 return connection.Query<ProductModel>(sql).ToList();
             }
-            return new List<ProductModel>();
         }
 
         public List<ProductAndSize> GetProductAndSizes(int modelID)
@@ -44,6 +43,21 @@ namespace DI03_2_Adventure_Works_ClassLibrary
                     $"WHERE pm.ProductModelID = {modelID}";
 
                 return connection.Query<ProductAndSize>(sql).ToList();
+            }
+        }
+
+        public List<int> GetProductModelID()
+        {
+            // Obtiene los productModel en la base de datos que se relacionan con product
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string sql =
+                    "SELECT DISTINCT pm.ProductModelID " +
+                    "FROM Production.ProductModel pm " +
+                    "INNER JOIN Production.Product p ON pm.ProductModelID = p.ProductModelID " +
+                    "ORDER BY pm.ProductModelID ASC";
+
+                return connection.Query<int>(sql).ToList();
             }
         }
     }

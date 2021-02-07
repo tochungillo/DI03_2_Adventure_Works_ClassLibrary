@@ -115,6 +115,9 @@
     <EmbeddedResource Include="DI03_2_Control.resx">
       <DependentUpon>DI03_2_Control.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DI03_2_MainForm.resx">
+      <DependentUpon>DI03_2_MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

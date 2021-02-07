@@ -29,6 +29,8 @@ namespace DI03_2_Adventure_Works_ClassLibrary
             InitializeComponent();
             // tooltip shown on mantain mouse hover productImagePictureBox
             instructionsToolTip.SetToolTip(productImagePictureBox, "Click to display another product");
+
+            ActualizarDatos();
         }
 
         // Cursor change to hand on enter productImagePictureBox
@@ -47,6 +49,14 @@ namespace DI03_2_Adventure_Works_ClassLibrary
         public int Aleatorio()
         {
             return random.Next(min, max);
+        }
+
+        // Asegurar que se tienen productModels corectos
+        public void ActualizarDatos()
+        {
+            modelIDs = da.GetProductModelID();
+            min = 0;
+            max = modelIDs.Count;
         }
 
         private void productImagePictureBox_Click(object sender, EventArgs e)
@@ -90,6 +100,20 @@ namespace DI03_2_Adventure_Works_ClassLibrary
             // Almacena los distintos sizes del productModel y el productID que le corresponde
             List<ProductAndSize> sizes = da.GetProductAndSizes(modelIDs[posicion]);
 
+            // no es necesario, pero resulta mas ordenado
+            try
+            {
+                // Si es un numero podra hacer la conversion
+                int esnumero = int.Parse(sizes[0].Size);
+                // Entonces ordena de mayor a menor (por ejemplo: 38, 42, 46 ...)
+                sizes = (List<ProductAndSize>)sizes.OrderBy(x => x.Size).ToList();
+            }
+            catch (Exception ex)
+            {
+                // Si es una letra, el orden es inverso (debe ser: S, M, L, XL)
+                sizes = (List<ProductAndSize>)sizes.OrderByDescending(x => x.Size).ToList();
+            }
+
             // Ha de crear botones por cada size
             foreach (ProductAndSize ps in sizes)
             {
@@ -103,6 +127,9 @@ namespace DI03_2_Adventure_Works_ClassLibrary
                     buttonSize.Text = ps.Size;
                 }
                 buttonSize.Name = ps.ProductID.ToString();
+                DI03_2_MainForm d2mf = new DI03_2_MainForm();
+                buttonSize.Click += new EventHandler(d2mf.buttonSize_Click);
+
                 // introduces esos botones al sizesFlowLayoutPanel
                 sizesFlowLayoutPanel.Controls.Add(buttonSize);
             }
