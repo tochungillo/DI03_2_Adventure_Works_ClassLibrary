@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DI03_2_Adventure_Works_ClassLibrary", "DI03_2_Adventure_Works_ClassLibrary\DI03_2_Adventure_Works_ClassLibrary.csproj", "{0CB00ADD-9611-482A-8573-423D0E474744}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DI03_2_Adventure_Works_ClassLibrary", "DI03_2_Adventure_Works_ClassLibrary\DI03_2_Adventure_Works_ClassLibrary.csproj", "{DE96FC85-0CAC-4BF0-8BAD-4915F2BC6B0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0CB00ADD-9611-482A-8573-423D0E474744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0CB00ADD-9611-482A-8573-423D0E474744}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0CB00ADD-9611-482A-8573-423D0E474744}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0CB00ADD-9611-482A-8573-423D0E474744}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE96FC85-0CAC-4BF0-8BAD-4915F2BC6B0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE96FC85-0CAC-4BF0-8BAD-4915F2BC6B0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE96FC85-0CAC-4BF0-8BAD-4915F2BC6B0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE96FC85-0CAC-4BF0-8BAD-4915F2BC6B0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {73EFADA6-83FA-450B-96CE-E0867A31B29F}
+		SolutionGuid = {F36324F8-A56C-4BCB-A84A-5537217FAC63}
 	EndGlobalSection
 EndGlobal

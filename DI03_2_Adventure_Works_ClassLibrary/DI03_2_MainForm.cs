@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace DI03_2_Adventure_Works_ClassLibrary
 {
-    public partial class AdventureWorksControl : UserControl
+    public partial class DI03_2_MainForm : Form
     {
-        public AdventureWorksControl()
+        public DI03_2_MainForm()
         {
             InitializeComponent();
         }
