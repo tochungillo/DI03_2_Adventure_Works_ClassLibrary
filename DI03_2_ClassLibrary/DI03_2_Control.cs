@@ -9,15 +9,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DI03_2_Adventure_Works_ClassLibrary
+namespace DI03_2_ClassLibrary
 {
     public partial class DI03_2_Control : UserControl
     {
         // almacena los productModelID
         public List<int> modelIDs = new List<int>();
 
+        public event EventHandler<ChangeTextBoxTextArgs> changeTextBoxTextCustomEvent;
+
         public int posicion;
-        public int productID;
         public int min;
         public int max;
 
@@ -54,7 +55,7 @@ namespace DI03_2_Adventure_Works_ClassLibrary
         // Asegurar que se tienen productModels corectos
         public void ActualizarDatos()
         {
-            modelIDs = da.GetProductModelID();
+            modelIDs = da.GetProductModelIDs();
             min = 0;
             max = modelIDs.Count;
         }
@@ -62,36 +63,16 @@ namespace DI03_2_Adventure_Works_ClassLibrary
         private void productImagePictureBox_Click(object sender, EventArgs e)
         {
             posicion = Aleatorio();
+            // guardar producto
+            List<ProductModel> pm = da.GetProductModelsById(modelIDs[posicion]);
+            // guardar datos
+            modelIdTextBox.Text = pm[0].ProductModelID.ToString();
+            modelNameTextBox.Text = pm[0].ProductModelName;
+            listPriceTextBox.Text = pm[0].ListPrice.ToString();
+            // guardar imagen
+            MemoryStream ms = new MemoryStream(pm[0].LargePhoto);
+            productImagePictureBox.Image = Image.FromStream(ms);
 
-            // Borra si hay otros botones creados
-            sizesFlowLayoutPanel.Controls.Clear();
-
-            // Obtiene los productos
-            List<ProductModel> products = da.GetProductModels(modelIDs[posicion]);
-
-            // pides que esten ordenados de mayor a menor por size
-            try
-            {
-                // Si es un numero podra hacer la conversion
-                int esnumero = int.Parse(products[0].Size);
-                // Entonces ordena de mayor a menor (por ejemplo: 38, 42, 46 ...)
-                products = (List<ProductModel>) products.OrderBy(x => x.Size).ToList();
-            }
-            catch (Exception ex)
-            {
-                // Si es una letra, el orden es inverso (debe ser: S, M, L, XL)
-                products = (List<ProductModel>) products.OrderByDescending(x => x.Size).ToList();
-            }
-
-            // Convierte los datos a una imagen y la asigna a productImagePictureBox
-            MemoryStream ms = new MemoryStream(products[0].LargePhoto);
-            Image foto = Image.FromStream(ms);
-            productImagePictureBox.Image = foto;
-
-            // Muestra la informacion del product model en productModelDataTextBox
-            productModelDataTextBox.Text = products[0].ToString();
-
-            // Creara botones y los introducira en sizesFlowLayoutPanel
             GenerarSizes();
         }
 
@@ -99,6 +80,8 @@ namespace DI03_2_Adventure_Works_ClassLibrary
         {
             // Almacena los distintos sizes del productModel y el productID que le corresponde
             List<ProductAndSize> sizes = da.GetProductAndSizes(modelIDs[posicion]);
+
+            sizesFlowLayoutPanel.Controls.Clear();
 
             // no es necesario, pero resulta mas ordenado
             try
@@ -153,11 +136,18 @@ namespace DI03_2_Adventure_Works_ClassLibrary
                     buttonSize.Text = ps.Size;
                 }
                 buttonSize.Name = ps.ProductID.ToString();
-                DI03_2_MainForm d2mf = new DI03_2_MainForm();
-                buttonSize.Click += new EventHandler(d2mf.buttonSize_Click);
+                buttonSize.Click += buttonSize_Click;
 
                 // introduces esos botones al sizesFlowLayoutPanel
                 sizesFlowLayoutPanel.Controls.Add(buttonSize);
+            }
+        }
+        // Evento de los botones size en el control
+        public void buttonSize_Click(object sender, EventArgs e)
+        {
+            if (changeTextBoxTextCustomEvent != null)
+            {
+                changeTextBoxTextCustomEvent(sender, new ChangeTextBoxTextArgs( ((Button) sender).Name ));
             }
         }
     }
